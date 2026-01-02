@@ -1,0 +1,12 @@
+{%- if gt_image and noise_image %}
+Given a question and the analysis of the retrieved images, please summarize in one sentence why image {{ noise_image }} does not help answer the question and should be considered noise, and in another sentence explain why the other image {{ gt_image }} are useful.
+{%- elif gt_image and not noise_image %}
+Given a question and the analysis of the retrieved images, please summarize in one sentence why image {{ gt_image }} is useful for answering the question.
+{%- elif noise_image and not gt_image %}
+Given a question and the analysis of the retrieved images, please summarize in one sentence why image {{ noise_image }} does not help answer the question and should be considered noise.
+{%- endif %}
+
+Question: {{ question }}
+
+Analysis of the images:
+{{ think }}

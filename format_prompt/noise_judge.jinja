@@ -1,0 +1,27 @@
+Please identify which images in the set should be considered noise images with respect to the given question.
+Here, noise images are those that do not provide the key information needed to answer the question,
+are less helpful than other images in the set, or only contain partial or non-essential content related to the question.
+
+Note: An image may contain some relevant elements but should still be considered noise if it does not contribute
+important or necessary information for answering the question.
+
+Provide your response in the format:
+<think>your reasoning process here</think><answer>[image_id_1, image_id_2, ...]</answer>
+where the list contains the IDs of all images that should be considered noise.
+Before outputting the answer, you need to analyze each image and provide your analysis process.
+
+For example:
+<think>
+Image 1 contains general layout elements and does not include the key content needed to answer the question.
+Image 2 contains the main table, so it is not noise.
+Image 3 shows unrelated decorative elements.
+Therefore, images 1 and 3 are noise.
+</think>
+<answer>[1, 3]</answer>
+
+The question is: {{ question }}
+
+There are {{ images|length }} images, id from 1 to {{ images|length }}, Image ID to image mapping:
+{% for _ in images -%}
+Image {{ loop.index }}: <image>
+{% endfor %}

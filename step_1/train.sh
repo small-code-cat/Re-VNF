@@ -1,0 +1,26 @@
+CUDA_VISIBLE_DEVICES=4,5,6,7 \
+swift sft \
+    --model /data/user0/models/Qwen/Qwen2.5-VL-7B-Instruct \
+    --dataset page_data_v4/sft_student_teacher_2.jsonl \
+    --split_dataset_ratio 0.02 \
+    --data_seed 42 \
+    --train_type lora \
+    --lora_rank 8 \
+    --lora_alpha 32 \
+    --target_modules all-linear \
+    --lorap_lr_ratio 16 \
+    --torch_dtype bfloat16 \
+    --num_train_epochs 2 \
+    --per_device_train_batch_size 1 \
+    --per_device_eval_batch_size 1 \
+    --learning_rate 1e-4 \
+    --freeze_vit true \
+    --gradient_accumulation_steps 4 \
+    --save_steps 100 \
+    --logging_steps 5 \
+    --max_length 32768 \
+    --output_dir output_v5 \
+    --attn_impl flash_attn \
+    --warmup_ratio 0.05 \
+    --max_pixels 1048576 \
+    --dataloader_num_workers 16

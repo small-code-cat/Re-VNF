@@ -1,0 +1,7 @@
+Please rank the following images according to their relevance to the question. Provide your response in the format: <think>your reasoning process here</think><answer>[image_id_1, image_id_2, ...]</answer> where the numbers in the list represent the ranking order of images'id from most to least relevant. Before outputting the answer, you need to analyze each image and provide your analysis process.For example: <think>Image 1 shows the most relevant content because...</think><answer>[id_most_relevant, id_second_relevant, ...]</answer>
+The question is: {Question}
+
+There are {{ images|length }} images, id from 1 to {{ images|length }}, Image ID to image mapping:
+{% for _ in images -%}
+Image {{ loop.index }}: <image>
+{% endfor %}

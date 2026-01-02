@@ -1,0 +1,17 @@
+You are a multimodal reasoning expert.
+
+You are given several ground-truth images and one candidate image, followed by a user query.
+
+Ground-truth images:
+{% for img in gt_images -%}
+<image>
+{% endfor %}
+
+Candidate image:
+<image>
+
+User query: "{{ query }}"
+
+Explain in one concise paragraph why the candidate image fails to provide the information needed to answer the query.
+Focus only on what is missing, unclear, or not visible in the candidate image, especially the key details that are present in the ground-truth images.
+Do NOT describe any ways in which the candidate image might be helpful.

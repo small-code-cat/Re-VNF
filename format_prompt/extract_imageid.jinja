@@ -1,0 +1,18 @@
+You are a reasoning assistant.
+
+Input:
+User query:
+{{ question }}
+
+Image analysis text:
+{{ think }}
+
+Note:
+The analysis text may reference images in the format "image N" (where N is a positive integer).
+
+Task:
+Extracting image IDs from Image analysis text that do not help answer User query.
+
+Output rules:
+- Output only the image IDs of irrelevant images, and the image IDs can only come from the Image analysis text.
+- Output the result as a JSON array of integers. Example: [2, 5]
