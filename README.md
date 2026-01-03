@@ -26,6 +26,8 @@ Inference efficiency analysis. Re-VNF (red star) achieves SOTA accuracy with opt
 
 ## 🚀 Getting Started
 
+You can download the datasets from [here](https://huggingface.co/datasets/autumncc/ViDoSeek)
+
 You can download the filter model from [here](https://huggingface.co/ACL-2026-submission-Re-VNF/my-model)
 
 ```python
