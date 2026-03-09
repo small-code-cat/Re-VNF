@@ -1,4 +1,4 @@
-# Re-VNF: Reasoning-Enhanced Visual Noise Filtering in Multimodal RAG
+# RE-VNF: Reasoning-Enhanced Visual Noise Filtering in Multimodal RAG
 
 ****
 
@@ -13,22 +13,31 @@
 
 ## 📑 Introduction
 
-We introduce RE-VNF, a novel Reasoning-Enhanced Visual Noise Filtering framework designed to mitigate hallucinations and enhance robustness in Multimodal Retrieval-Augmented Generation (RAG) systems. Unlike existing multimodal reranking approaches that merely reorder candidates but inevitably retain noise due to unpredictable cutoff thresholds, RE-VNF empowers the generator to explicitly identify and discard irrelevant visual content through an end-to-end reasoning mechanism. The framework follows a two-stage training paradigm: during the supervised fine-tuning (SFT) stage, we employ a Collaborative Multi-Agent Reasoning mechanism to distill expert-level discrimination capabilities into the model, utilizing contrastive analysis between hard negatives and ground truths to generate high-quality reasoning traces. In the second stage, Group Relative Policy Optimization (GRPO) is applied to further align the model with a controllable filtering paradigm using a weighted accuracy reward, specifically designed to maximize filtering precision without compromising the recall of critical visual evidence. This integration of reasoning distillation and reward-driven optimization allows RE-VNF to effectively balance information preservation and noise reduction. Experiments on the ViDoSeek and SlideVQA Refined benchmarks demonstrate that RE-VNF achieves state-of-the-art performance, enabling a significantly smaller 7B model to surpass much larger baselines in handling noisy visual contexts.
-![overall](./assets/overall.png)
+We introduce RE-VNF, a novel framework designed to enhance multimodal reasoning in RAG systems. Unlike normal RAG pipelines that blindly accept all retrieved images, RE-VNF actively identifies and filters out visual noise before the final answer generation to improve factual accuracy. To build a strong foundation, we first construct a balanced, high-noise training dataset through hard negative mining. Furthermore, RE-VNF employs a collaborative multi-agent framework, using two specialized models to write and check structured, step-by-step reasoning paths for noise filtering. Finally, we optimize the target model through SFT and GRPO, leveraging a weighted reward to ensure the filtering process is highly accurate and protects useful facts.
+![overall](./assets/overall.jpg)
 
 ## 📈 Results
 
-Our method, RE-VNF, consistently achieves state-of-the-art performance across distinct evaluation benchmarks, including both noise filtering efficiency and downstream generation quality. Compared with robust VLM prompting and reranking baselines, RE-VNF brings significant improvements; for instance, compared with the strong Qwen2.5-VL-7B-Instruct baseline using CoT prompting, F1@5 on ViDoSeek improves from 0.6691 to 0.8373 , and even surpasses the significantly larger Qwen2.5-VL-72B model by 2.61 points , demonstrating the effectiveness of our two-stage training framework in explicitly identifying and discarding irrelevant visual contexts.
+Table 1 evaluates our proposed Reasoning-based Visual Noise Filtering (RE-VNF) method against a "No Filter" baseline and various MLLMs under different retrieval top-k settings. The results demonstrate that RE-VNF consistently achieves superior performance across multiple benchmarks, including MMLongBench-Doc and VidoSeek. Notably, while standard models suffer from noticeable performance degradation as the context window expands, our approach exhibits distinct robustness, effectively mitigating visual noise and maintaining high accuracy even when handling a larger number of retrieved contexts (k=10).
+
 ![experiments](./assets/experiments.png)
 
-Inference efficiency analysis. Re-VNF (red star) achieves SOTA accuracy with optimized token usage (7.5k), demonstrating a superior trade-off compared to computation-intensive baselines like MM-R5 and CoT Prompting.
-![experiments2](./assets/experiments2.png)
+![experiments2](./assets/experiments_2.png)
+
+![experiments3](./assets/experiments_3.png)
+
+![experiments4](./assets/experiments_4.png)
+
+![experiments5](./assets/experiments_5.png)
 
 ## 🚀 Getting Started
 
-You can download the datasets from [here](https://huggingface.co/datasets/autumncc/ViDoSeek)
+You can download the datasets from the following links:
+- [ViDoSeek & SlideVQA Refined](https://huggingface.co/datasets/autumncc/ViDoSeek)
+- [MMLongBench-Doc](https://github.com/mayubo2333/MMLongBench-Doc)
+- [LongDocUrl](https://huggingface.co/datasets/dengchao/LongDocURL)
 
-You can download the filter model from [here](https://huggingface.co/ACL-2026-submission-Re-VNF/my-model)
+You can download the filter model from [here](https://huggingface.co/ACMMM-2026-submission-RE-VNF/my-model)
 
 ```python
 from evaluate.filter.noiser_vllm import QueryNoiser
